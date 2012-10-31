@@ -1,0 +1,58 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="page-header">
+        <h1>Book form</h1>
+    </div>
+    <form class="form form-horizontal" action="{{ path('post') }}" method="POST" novalidate>
+        {{ form_row(form.name) }}
+        {{ form_row(form.author) }}
+
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <div class="page-header"><h2>Chapitres</h2></div>
+                {% for subForm in form.chapters %}
+                    {{ form_widget(subForm) }}
+                    <hr />
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <div class="page-header"><h2>Nouveau chapitre</h2></div>
+                {{ form_row(form.chapters.vars.prototype.name)
+                    | replace({'__name__': form.chapters | length })
+                    | raw }}
+            </div>
+        </div>
+
+        {{ form_widget(form._token) }}
+
+        <div class="form-actions">
+            <button type="submit" class="btn pull-right">Valider</button>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block book %}
+{% if book %}
+
+<dl>
+    <dt>Name</dt>
+    <dd>{{ book.name }}</dd>
+    <dt>Author</dt>
+    <dd>{{ book.author }}</dd>
+    <dt>Chapitres</dt>
+    <dd>
+        <ul>
+            {% for chapter in book.chapters %}
+                <li>{{ chapter.name }}</li>
+            {% endfor %}
+        </ul>
+    </dd>
+</dl>
+
+{% endif %}
+{% endblock %}

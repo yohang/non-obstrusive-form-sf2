@@ -1,0 +1,9 @@
+{
+    "name": "symfony2-non-obstrusive-form-example",
+    "version": "1.0.0-dev",
+    "private": true,
+    "dependencies": {
+        "less":          "*",
+        "bower":         "*"
+    }
+}
